@@ -48,27 +48,34 @@ const AdminDashboard = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setSuccessMessage(''); 
-
+    setSuccessMessage('');
+  
     const dataToSend = { ...formData };
+    delete dataToSend._id;
+  
     if (userType === 'dev') {
-      delete dataToSend.orgName;
+      delete dataToSend.orgName; 
     }
-
+  
     try {
-      const response = await axios.post('http://localhost:8000/api/users/register', dataToSend);
-      localStorage.setItem('token', response.data.token);
-      setSuccessMessage(formData.userId ? 'User updated successfully' : 'User added successfully');
+      const url = formData._id 
+        ? `http://localhost:8000/api/admin/users/${formData._id}` 
+        : 'http://localhost:8000/api/users/register';
+      const method = formData._id ? 'put' : 'post';
+  
+      const response = await axios[method](url, dataToSend);
+      setSuccessMessage(formData._id ? 'User updated successfully' : 'User added successfully');
       setTimeout(() => {
         fetchUsers();
-        setShowForm(false); 
-      }, 3000); 
+        setShowForm(false);
+      }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
     } finally {
       setLoading(false);
     }
   };
+  
 
   const handleEdit = (user) => {
     setFormData({ ...user });
