@@ -1,26 +1,29 @@
 const express = require('express');
 const connectDB = require('./config/db');
-require('dotenv').config();
 const UserRoutes = require('./routes/UserRoutes'); 
-const cors = require('cors'); 
-const app = express();
-const port = 8000;
+const AdminRoutes = require('./routes/AdminRoutes'); 
+const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 connectDB();
 
-app.use(cors()); 
+const app = express();
 
-app.use(express.json()); 
+app.use(cors());
+app.use(express.json());
 
-app.use('/api/users', UserRoutes); 
+app.use('/api/users', UserRoutes);
+
+app.use('/api/admin', AdminRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    res.status(500).json({ message: 'Une erreur interne est survenue.' });
 });
 
+const port = process.env.PORT;
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-}); 
-
-
+    console.log(`Serveur en cours d'exécution sur le port ${port}`);
+});

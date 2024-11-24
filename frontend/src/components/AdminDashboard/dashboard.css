@@ -1,0 +1,59 @@
+.user-list-title {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .user-table {
+    width: 60%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .user-table, th, td {
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .user-table-header, .user-table-cell {
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .edit-button {
+    background-color: #88D66C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80px;
+    margin-right: 5px;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80px;
+  }
+  
+  .action-button:hover {
+    background-color: #d32f2f;
+  }
+
+  .add-user-link {
+    margin-top: 20px;
+    padding: 0.8rem 1.5rem;
+    background-color: #387ADF; 
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  
+
