@@ -33,7 +33,7 @@ const Login = () => {
       const data = await response.json();
       localStorage.setItem('token', data.token);
 
-      navigate('/dashboard');
+      navigate('/admin/dashboard');
     } catch (err) {
       setError(err.message || 'Incorrect email or password');
     }

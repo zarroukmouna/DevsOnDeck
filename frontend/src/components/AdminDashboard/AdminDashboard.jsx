@@ -16,7 +16,8 @@ const AdminDashboard = () => {
   const [userType, setUserType] = useState('dev');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showForm, setShowForm] = useState(false);  
+  const [showForm, setShowForm] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(''); 
 
   const fetchUsers = async () => {
     try {
@@ -47,6 +48,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccessMessage(''); 
 
     const dataToSend = { ...formData };
     if (userType === 'dev') {
@@ -56,6 +58,11 @@ const AdminDashboard = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/users/register', dataToSend);
       localStorage.setItem('token', response.data.token);
+      setSuccessMessage(formData.userId ? 'User updated successfully' : 'User added successfully');
+      setTimeout(() => {
+        fetchUsers();
+        setShowForm(false); 
+      }, 3000); 
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
     } finally {
@@ -66,6 +73,7 @@ const AdminDashboard = () => {
   const handleEdit = (user) => {
     setFormData({ ...user });
     setUserType(user.orgName ? 'org' : 'dev');
+    setShowForm(true);
   };
 
   const handleDelete = async (userId) => {
@@ -83,8 +91,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="signup-container">
-      
-      <h2 className="user-list-title">Users List</h2>
+      <h3 className="user-list-title">All Users</h3>
       <table className="user-table">
         <thead>
           <tr>
@@ -114,6 +121,9 @@ const AdminDashboard = () => {
           Add a new user
         </button>
       )}
+
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} 
+
       {showForm && (
         <form className="signup-form" onSubmit={handleSubmit}>
           {error && <p className="error-message">{error}</p>}
@@ -206,10 +216,10 @@ const AdminDashboard = () => {
           </div>
         </form>
       )}
-
     </div>
   );
 };
 
 export default AdminDashboard;
+
 

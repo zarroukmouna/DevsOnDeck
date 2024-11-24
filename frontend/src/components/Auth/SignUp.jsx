@@ -16,6 +16,7 @@ const SignUp = () => {
   const [userType, setUserType] = useState('dev');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(''); // Nouvel état pour le message de succès
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,27 +34,33 @@ const SignUp = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccessMessage(''); 
 
     const dataToSend = { ...formData };
     if (userType === 'dev') {
-        delete dataToSend.orgName;
+      delete dataToSend.orgName;
     }
 
     try {
-        const response = await axios.post('http://localhost:8000/api/users/register', dataToSend);
-        localStorage.setItem('token', response.data.token);
-        navigate('/');
+      const response = await axios.post('http://localhost:8000/api/users/register', dataToSend);
+      localStorage.setItem('token', response.data.token);
+      setSuccessMessage('Registration successful !'); 
+      setTimeout(() => {
+        navigate('/'); 
+      }, 3000); 
     } catch (err) {
-        setError(err.response?.data?.message || 'An error occurred');
+      setError(err.response?.data?.message || 'An error occurred');
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
   return (
     <div className="signup-container">
       <form onSubmit={handleSubmit} className='signup-form'>
         {error && <p style={{ color: 'red' }}>{error}</p>}
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} 
+
         <div>
           <label>User Type</label>
           <select onChange={handleUserTypeChange} value={userType}>
@@ -140,5 +147,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-
