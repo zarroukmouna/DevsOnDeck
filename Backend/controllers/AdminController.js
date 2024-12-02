@@ -78,4 +78,3 @@ const getAllUsers = async (req, res) => {
 
 module.exports = { addUser, updateUser, deleteUser, getAllUsers };
 
-

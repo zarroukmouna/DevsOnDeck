@@ -14,9 +14,10 @@ const SignUp = () => {
     orgName: '',
   });
   const [userType, setUserType] = useState('dev');
+  const [role, setRole] = useState('user');  
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(''); // Nouvel état pour le message de succès
+  const [successMessage, setSuccessMessage] = useState(''); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,13 +31,21 @@ const SignUp = () => {
     setUserType(e.target.value);
   };
 
+  const handleRoleChange = (e) => {
+    setRole(e.target.value); 
+    if (e.target.value === 'admin') {
+      setUserType('dev');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     setSuccessMessage(''); 
 
-    const dataToSend = { ...formData };
+    const dataToSend = { ...formData, role }; 
+
     if (userType === 'dev') {
       delete dataToSend.orgName;
     }
@@ -62,12 +71,21 @@ const SignUp = () => {
         {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} 
 
         <div>
-          <label>User Type</label>
-          <select onChange={handleUserTypeChange} value={userType}>
-            <option value="dev">Developer</option>
-            <option value="org">Organization</option>
+          <label>Role</label>
+          <select onChange={handleRoleChange} value={role}>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
           </select>
         </div>
+        {role === 'user' && (
+          <div>
+            <label>User Type</label>
+            <select onChange={handleUserTypeChange} value={userType}>
+              <option value="dev">Developer</option>
+              <option value="org">Organization</option>
+            </select>
+          </div>
+        )}
 
         {userType === 'org' && (
           <div>
@@ -147,3 +165,5 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+

@@ -12,42 +12,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: { 
+        type: String, 
+        enum: ['admin', 'dev', 'org'], 
+        default: 'dev' 
+    }
 });
 
 const validateUser = (user) => {
     const schema = Joi.object({
         orgName: Joi.string().optional().allow(''),
-        firstName: Joi.string()
-            .min(2)
-            .regex(/^[a-zA-Z]+$/)
-            .required()
-            .messages({
-                "string.pattern.base": "First name must only contain alphabetic characters.",
-            }),
-        lastName: Joi.string()
-            .min(2)
-            .regex(/^[a-zA-Z]+$/)
-            .required()
-            .messages({
-                "string.pattern.base": "Last name must only contain alphabetic characters.",
-            }),
-        email: Joi.string()
-            .email()
-            .required()
-            .messages({
-                "string.email": "Email must be a valid email address.",
-            }),
+        firstName: Joi.string().min(2).regex(/^[a-zA-Z]+$/).required(),
+        lastName: Joi.string().min(2).regex(/^[a-zA-Z]+$/).required(),
+        email: Joi.string().email().required(),
         state: Joi.string().required(),
-        password: Joi.string()
-            .min(8)
-            .regex(/[A-Z]/)
-            .regex(/[a-z]/)
-            .regex(/[0-9]/)
-            .regex(/[@$!%*?&#]/)
-            .required()
-            .messages({
-                "string.pattern.base": "Password must include uppercase, lowercase, number, and special character.",
-            }),
+        password: Joi.string().min(8).regex(/[A-Z]/).regex(/[a-z]/).regex(/[0-9]/).regex(/[@$!%*?&#]/).required(),
+        role: Joi.string().valid('admin', 'dev', 'org').optional() 
     });
 
     return schema.validate(user);
@@ -69,6 +49,8 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 const User = mongoose.model('User', userSchema);
 
 module.exports = { User, validateUser };
+
+
 
 
 

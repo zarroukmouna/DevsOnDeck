@@ -16,15 +16,20 @@ const AdminDashboard = () => {
   const [userType, setUserType] = useState('dev');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(''); 
+  const [successMessage, setSuccessMessage] = useState('');
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/admin/users');
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8000/api/admin/users', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
+      setError('Failed to fetch users');
     }
   };
 
@@ -67,7 +72,6 @@ const AdminDashboard = () => {
       setSuccessMessage(formData._id ? 'User updated successfully' : 'User added successfully');
       setTimeout(() => {
         fetchUsers();
-        setShowForm(false);
       }, 3000);
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
@@ -76,11 +80,9 @@ const AdminDashboard = () => {
     }
   };
   
-
   const handleEdit = (user) => {
     setFormData({ ...user });
     setUserType(user.orgName ? 'org' : 'dev');
-    setShowForm(true);
   };
 
   const handleDelete = async (userId) => {
@@ -123,110 +125,107 @@ const AdminDashboard = () => {
         </tbody>
       </table>
 
-      {!showForm && (
-        <button onClick={() => setShowForm(true)} className="add-user-link">
-          Add a new user
-        </button>
-      )}
-
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} 
 
-      {showForm && (
-        <form className="signup-form" onSubmit={handleSubmit}>
-          {error && <p className="error-message">{error}</p>}
+      <h3 className="form-title">{formData._id ? 'Edit User' : 'Add User'}</h3>
 
+      <form className="signup-form" onSubmit={handleSubmit}>
+        {error && <p className="error-message">{error}</p>}
+
+        <div className="form-group">
+          <label className="form-label">User Type</label>
+          <select className="form-input" onChange={handleUserTypeChange} value={userType}>
+            <option value="dev">Developer</option>
+            <option value="org">Organization</option>
+          </select>
+        </div>
+
+        {userType === 'org' && (
           <div className="form-group">
-            <label className="form-label">User Type</label>
-            <select className="form-input" onChange={handleUserTypeChange} value={userType}>
-              <option value="dev">Developer</option>
-              <option value="org">Organization</option>
-            </select>
-          </div>
-
-          {userType === 'org' && (
-            <div className="form-group">
-              <label className="form-label">Organization Name</label>
-              <input
-                className="form-input"
-                type="text"
-                name="orgName"
-                value={formData.orgName}
-                onChange={handleChange}
-              />
-            </div>
-          )}
-
-          <div className="form-group">
-            <label className="form-label">First Name</label>
+            <label className="form-label">Organization Name</label>
             <input
               className="form-input"
               type="text"
-              name="firstName"
-              value={formData.firstName}
+              name="orgName"
+              value={formData.orgName}
               onChange={handleChange}
-              required
             />
           </div>
+        )}
 
-          <div className="form-group">
-            <label className="form-label">Last Name</label>
-            <input
-              className="form-input"
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label className="form-label">First Name</label>
+          <input
+            className="form-input"
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <input
-              className="form-input"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Last Name</label>
+          <input
+            className="form-input"
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
-              className="form-input"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Email</label>
+          <input
+            className="form-input"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <label className="form-label">State</label>
-            <input
-              className="form-input"
-              type="text"
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label className="form-label">Password</label>
+          <input
+            className="form-input"
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-          <div className="form-group">
-            <button className="form-button" type="submit" disabled={loading}>
-              {loading ? 'Submitting...' : formData.userId ? 'Update User' : 'Add User'}
-            </button>
-          </div>
-        </form>
-      )}
+        <div className="form-group">
+          <label className="form-label">State</label>
+          <input
+            className="form-input"
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <button className="form-button" type="submit" disabled={loading}>
+            {loading ? 'Submitting...' : formData._id ? 'Update User' : 'Add User'}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
 
 export default AdminDashboard;
+
+
+
 
 

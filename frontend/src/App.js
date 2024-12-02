@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Shared/Navbar';
 import HomePage from './components/Home/HomePage';
 import Login from './components/Auth/Login';
-import SignUp from './components/Auth/SignUp'; 
+import SignUp from './components/Auth/SignUp';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import PrivateRoute from './components/PrivateRoutes/PrivateRoute';
 
 function App() {
   return (
@@ -15,8 +16,11 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />
-        } />
+          {/* Utilisez PrivateRoute dans l'élément de Route */}
+          <Route 
+            path="/admin/dashboard" 
+            element={<PrivateRoute element={<AdminDashboard />} />} 
+          />
         </Routes>
       </div>
     </Router>
@@ -24,6 +28,4 @@ function App() {
 }
 
 export default App;
-
-
 
