@@ -12,15 +12,6 @@ const HomePage = () => {
           <button>Search</button>
         </div>
       </header>
-      <main className="homepage-main">
-      <section className="join-community">
-          <h3>Join the Community</h3>
-          <p>Be part of a growing network of developers and companies.</p>
-          <div className="join-button-container">
-            <button className="join-button">Join Now</button>
-          </div>
-        </section>
-      </main>
     </div>
   );
 };

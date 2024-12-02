@@ -11,9 +11,47 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6,
     },
 });
+
+const validateUser = (user) => {
+    const schema = Joi.object({
+        orgName: Joi.string().optional().allow(''),
+        firstName: Joi.string()
+            .min(2)
+            .regex(/^[a-zA-Z]+$/)
+            .required()
+            .messages({
+                "string.pattern.base": "First name must only contain alphabetic characters.",
+            }),
+        lastName: Joi.string()
+            .min(2)
+            .regex(/^[a-zA-Z]+$/)
+            .required()
+            .messages({
+                "string.pattern.base": "Last name must only contain alphabetic characters.",
+            }),
+        email: Joi.string()
+            .email()
+            .required()
+            .messages({
+                "string.email": "Email must be a valid email address.",
+            }),
+        state: Joi.string().required(),
+        password: Joi.string()
+            .min(8)
+            .regex(/[A-Z]/)
+            .regex(/[a-z]/)
+            .regex(/[0-9]/)
+            .regex(/[@$!%*?&#]/)
+            .required()
+            .messages({
+                "string.pattern.base": "Password must include uppercase, lowercase, number, and special character.",
+            }),
+    });
+
+    return schema.validate(user);
+};
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
@@ -25,19 +63,6 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
-};
-
-const validateUser = (user) => {
-    const schema = Joi.object({
-        orgName: Joi.string().optional().allow(''),  
-        firstName: Joi.string().min(2).required(),
-        lastName: Joi.string().min(2).required(),
-        email: Joi.string().email().required(),
-        state: Joi.string().required(),
-        password: Joi.string().min(8).required(),
-    });
-
-    return schema.validate(user);
 };
 
 
