@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
     },
     role: { 
         type: String, 
-        enum: ['admin', 'dev', 'org'], 
-        default: 'dev' 
+        enum: ['Admin', 'User'], 
+        default: 'User' 
     }
 });
 
@@ -27,7 +27,7 @@ const validateUser = (user) => {
         email: Joi.string().email().required(),
         state: Joi.string().required(),
         password: Joi.string().min(8).regex(/[A-Z]/).regex(/[a-z]/).regex(/[0-9]/).regex(/[@$!%*?&#]/).required(),
-        role: Joi.string().valid('admin', 'dev', 'org').optional() 
+        role: Joi.string().valid('Admin', 'User').optional() 
     });
 
     return schema.validate(user);

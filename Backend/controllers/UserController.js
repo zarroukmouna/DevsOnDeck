@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
         lastName,
         state,
         orgName: orgName || null,
-        role: role || 'dev', 
+        role: role, 
       });
   
       await newUser.save();

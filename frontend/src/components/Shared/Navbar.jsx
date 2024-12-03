@@ -11,7 +11,6 @@ const Navbar = () => {
       <div className="navbar-links">
         <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
         <Link to="/login" className={location.pathname === '/login' ? 'active' : ''}>Login</Link>
-        <Link to="/admin/dashboard" className={location.pathname === '/admin/dashboard' ? 'active' : ''}>Admin Dashboard</Link>
 
       </div>
     </nav>

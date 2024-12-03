@@ -16,7 +16,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          {/* Utilisez PrivateRoute dans l'élément de Route */}
           <Route 
             path="/admin/dashboard" 
             element={<PrivateRoute element={<AdminDashboard />} />} 

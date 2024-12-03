@@ -14,7 +14,7 @@ const SignUp = () => {
     orgName: '',
   });
   const [userType, setUserType] = useState('dev');
-  const [role, setRole] = useState('user');  
+  const [role, setRole] = useState('User');  
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(''); 
@@ -33,8 +33,8 @@ const SignUp = () => {
 
   const handleRoleChange = (e) => {
     setRole(e.target.value); 
-    if (e.target.value === 'admin') {
-      setUserType('dev');
+    if (e.target.value === 'Admin') {
+      setRole('Admin');
     }
   };
 
@@ -73,11 +73,11 @@ const SignUp = () => {
         <div>
           <label>Role</label>
           <select onChange={handleRoleChange} value={role}>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
-        {role === 'user' && (
+        {role === 'User' && (
           <div>
             <label>User Type</label>
             <select onChange={handleUserTypeChange} value={userType}>
