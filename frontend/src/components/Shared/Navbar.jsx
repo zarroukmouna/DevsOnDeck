@@ -11,6 +11,7 @@ const Navbar = () => {
       <div className="navbar-links">
         <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link>
         <Link to="/login" className={location.pathname === '/login' ? 'active' : ''}>Login</Link>
+        <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact Us</Link>
 
       </div>
     </nav>
@@ -18,6 +19,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 
 
 

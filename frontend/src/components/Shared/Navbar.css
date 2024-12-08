@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -7,32 +6,26 @@
 }
 
 .navbar {
+  background-color: #2B2730; 
+  padding: 15px 40px; 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #000000;
-  color: #FFFFFF;
+  justify-content: center;
 }
 
 .navbar-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 30px; 
 }
 
 .navbar-links a {
   text-decoration: none;
-  color: #ffffff;
-  font-size: 0.9rem;
-  transition: color 0.3s;
+  color: #F0F3FF; 
+  font-size: 16px;
+  transition: color 0.3s ease;
 }
 
-.navbar-links a.active,
-.navbar-links a:hover {
-  color: #387ADF;
+.navbar-links a.active {
+  color: #9575DE; 
 }
-
-
-
 
 

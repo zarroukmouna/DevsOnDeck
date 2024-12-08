@@ -1,0 +1,55 @@
+.contact-section {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.faq-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #2B2730;
+  padding: 20px;
+  border-radius: 8px;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.faq-form label {
+  font-size: 16px;
+  color: #F0F3FF;
+}
+
+.faq-form input,
+.faq-form textarea {
+  background-color: #FFFFFF;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #F0F3FF;
+  border-radius: 5px;
+  width: 95%;
+}
+
+.faq-form button {
+  padding: 10px 20px;
+  background-color: #9575DE;
+  border: none;
+  color: #F0F3FF;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.faq-form button:hover {
+  background-color: #7E56B0;
+}
+
+
+
+
+
+
+
+
+  

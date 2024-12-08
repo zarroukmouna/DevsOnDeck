@@ -6,6 +6,7 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import PrivateRoute from './components/PrivateRoutes/PrivateRoute';
+import Contact from './components/Contact/Contact';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             path="/admin/dashboard" 
             element={<PrivateRoute element={<AdminDashboard />} />} 
           />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>

@@ -1,60 +1,108 @@
-.user-list-title {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .user-table {
-    width: 60%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-  }
-  
-  .user-table, th, td {
-    border: 1px solid #ddd;
-    font-size: 14px;
-  }
-  
-  .user-table-header, .user-table-cell {
-    padding: 10px;
-    text-align: left;
-    font-size: 14px;
-  }
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #FFFFFF;
+}
 
-  .edit-button {
-    background-color: #88D66C;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 80px;
-    margin-right: 5px;
-  }
-  
-  .delete-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 80px;
-  }
-  
-  .action-button:hover {
-    background-color: #d32f2f;
-  }
+.sidebar {
+  background-color: #2B2730;
+  color: #F0F3FF;
+  width: 20%;
+  padding: 20px;
+}
 
-  .add-user-link {
-    margin-top: 40px;
-    padding: 0.6rem 1.5rem;
-    background-color: #387ADF; 
-    color: #FFFFFF;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.sidebar h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-  
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #9575DE;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar ul li.active,
+.sidebar ul li:hover {
+  background-color: #7E56B0;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.form-title {
+  font-size: 20px;
+  color: #2B2730;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #FFFFFF;
+}
+
+.user-table th
+{
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #2B2730;
+  font-size: 14px;
+}
+
+.user-table td {
+  padding: 5px;
+  text-align: center;
+  border-bottom: 1px solid #E0E0E0;
+  font-size: 14px;
+}
+
+.user-table th {
+  background-color: #2B2730;
+  color: #FFFFFF;
+}
+
+.edit-button,
+.delete-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+  width: 80px;
+}
+
+.edit-button {
+  background-color: #28A745;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button {
+  background-color: #DC3545;
+}
+
+.delete-button:hover {
+  background-color: #C82333;
+}
 
