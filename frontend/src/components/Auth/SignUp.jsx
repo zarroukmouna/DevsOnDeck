@@ -14,10 +14,10 @@ const SignUp = () => {
     orgName: '',
   });
   const [userType, setUserType] = useState('dev');
-  const [role, setRole] = useState('User');  
+  const [role, setRole] = useState('User');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(''); 
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +32,7 @@ const SignUp = () => {
   };
 
   const handleRoleChange = (e) => {
-    setRole(e.target.value); 
+    setRole(e.target.value);
     if (e.target.value === 'Admin') {
       setRole('Admin');
     }
@@ -42,9 +42,9 @@ const SignUp = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setSuccessMessage(''); 
+    setSuccessMessage('');
 
-    const dataToSend = { ...formData, role }; 
+    const dataToSend = { ...formData, role };
 
     if (userType === 'dev') {
       delete dataToSend.orgName;
@@ -53,10 +53,14 @@ const SignUp = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/users/register', dataToSend);
       localStorage.setItem('token', response.data.token);
-      setSuccessMessage('Registration successful !'); 
+      setSuccessMessage('Registration successful!');
       setTimeout(() => {
-        navigate('/'); 
-      }, 3000); 
+        if (userType === 'dev') {
+          navigate('/skills');
+        } else {
+          navigate('/');
+        }
+      }, 1000);
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
     } finally {
@@ -66,9 +70,9 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
-      <form onSubmit={handleSubmit} className='signup-form'>
+      <form onSubmit={handleSubmit} className="signup-form">
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} 
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
         <div>
           <label>Role</label>
@@ -165,5 +169,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-

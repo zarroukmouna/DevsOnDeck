@@ -7,6 +7,7 @@ import SignUp from './components/Auth/SignUp';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import PrivateRoute from './components/PrivateRoutes/PrivateRoute';
 import Contact from './components/Contact/Contact';
+import Skills from './components/DevSkills/Skills';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             element={<PrivateRoute element={<AdminDashboard />} />} 
           />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/skills" element={<Skills />} />
         </Routes>
       </div>
     </Router>
